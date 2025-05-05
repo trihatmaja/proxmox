@@ -1,0 +1,25 @@
+name: Terraform Apply (Proxmox)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-apply:
+    runs-on: [self-hosted, terraform, local]
+    defaults:
+      run:
+        working-directory: ./proxmox-vm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: terraform-plan
+          path: ./proxmox-vm
+      - run: terraform init
+      - run: terraform apply -auto-approve tfplan.binary
+        env:
+          TF_VAR_pm_user: ${{ secrets.PM_USER }}
+          TF_VAR_pm_password: ${{ secrets.PM_PASSWORD }}
