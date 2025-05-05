@@ -11,9 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.6.6
       - run: terraform init
       - run: terraform plan -out=tfplan.binary
         env:
