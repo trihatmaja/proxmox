@@ -81,6 +81,6 @@ module "vm3" {
 ```
 
 ## 📎 Referensi
-Terraform Provider Proxmox[https://github.com/Telmate/terraform-provider-proxmox]
+[https://github.com/Telmate/terraform-provider-proxmox]Terraform Provider Proxmox
 
 ---
