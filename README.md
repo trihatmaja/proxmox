@@ -6,11 +6,14 @@ Proyek ini memungkinkan provisioning VM ke Proxmox secara modular menggunakan Te
 
 ## 📦 Struktur Proyek
 
-proxmox-vm/
-├── vm1.tf # Modul VM 1
-├── variables/vm1.tf # Variabel VM 1
-├── terraform.tfvars # Nilai VM
-├── modules/proxmox_vm/ # Reusable module
+.
+├── proxmox
+│   ├── vm1.tf
+│   │   ├── variables
+│   │   │   └── vm1.tf
+|   |   ├──terraform.tfvars   
+    └── modules
+        └── proxmox_vm # reusable
 
 ---
 
