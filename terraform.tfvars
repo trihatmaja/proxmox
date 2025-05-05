@@ -1,6 +1,3 @@
-pm_user     = "root@pam"
-pm_password = "your_password"
-
 # VM 1
 vm1_name         = "vm-ubuntu-01"
 vm1_id           = 100
