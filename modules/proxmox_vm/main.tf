@@ -1,39 +1,44 @@
 resource "proxmox_vm_qemu" "vm" {
   name        = var.vm_name
-  target_node = var.target_node
-  vmid        = var.vm_id
+  vm_id       = var.vm_id
+  node_name   = var.target_node
+  desc        = "Provisioned via Terraform"
 
-  desc        = "Provisioned from module"
-  onboot      = true
-  cores       = var.vm_cores
-  sockets     = 1
-  memory      = var.vm_memory
-  scsihw      = "virtio-scsi-pci"
-  boot        = "order=cdrom;ide2;scsi0"
+  cpu {
+    cores = var.vm_cores
+  }
+
+  memory {
+    dedicated = var.vm_memory
+  }
 
   disk {
-    slot     = 0
-    size     = var.vm_disk_size
-    type     = "scsi"
-    storage  = var.vm_storage
-    format   = "qcow2"
+    interface    = "scsi0"
+    datastore_id = var.vm_storage
+    size         = var.vm_disk_size
+    file_format  = "qcow2"
   }
 
   cdrom {
-    file     = var.iso_path
-    storage  = var.iso_storage
+    enabled      = true
+    file_id      = var.iso_path
+    datastore_id = var.iso_storage
   }
 
-  network {
-    model  = "virtio"
+  network_device {
     bridge = var.vm_bridge
+    model  = "virtio"
   }
 
-  os_type   = "l26"
-  bootdisk = "scsi0"
-  agent    = 0
-
-  lifecycle {
-    ignore_changes = [network]
+  operating_system {
+    type = "l26"
   }
+
+  boot_order = ["cdrom", "disk"]
+
+  agent {
+    enabled = false
+  }
+
+  started = true
 }
