@@ -83,11 +83,10 @@ module "vm3" {
   ...
   vm_cores     = 4
   vm_memory    = 4096
-  vm_disk_size = "50G"
+  vm_disk_size = 50
 }
 ```
 
 ## 📎 Referensi
+
 [Terraform Provider Proxmox](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/guides/cloud-image)
-[]
----
