@@ -6,4 +6,6 @@ module "vm1" {
   image_url       = var.vm1_image_url
   image_file_name = var.vm1_image_file_name
   vm_tags         = var.vm1_tags
+  vm_username     = var.vm_username
+  vm_password     = var.vm_password
 }
