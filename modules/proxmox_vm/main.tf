@@ -65,4 +65,5 @@ resource "proxmox_virtual_environment_download_file" "cloud_image" {
   node_name    = var.target_node
   url          = var.image_url
   file_name    = var.image_file_name
+  verify       = false
 }
