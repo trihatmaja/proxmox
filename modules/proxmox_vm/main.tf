@@ -44,3 +44,11 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   started = true
 }
+
+resource "proxmox_virtual_environment_download_file" "cloud_image" {
+  content_type = "iso"
+  datastore_id = "local"
+  node_name    = var.target_node
+  url          = var.image_url
+  file_name    = var.image_file_name
+}
