@@ -65,5 +65,5 @@ resource "proxmox_virtual_environment_download_file" "target_cloud_image" {
   url          = var.image_url
   file_name    = var.image_file_name
   verify       = false
-  overwrite    = false
+  overwrite    = true
 }
