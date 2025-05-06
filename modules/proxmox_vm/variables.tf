@@ -7,8 +7,8 @@ variable "vm_tags" {
   type    = list(string)
   default = []
 }
-var.vm_username {}
-var.vm_password {}
+variable "vm_username" {}
+variable "vm_password" {}
 
 # Optional defaults
 variable "vm_cores"     { default = 2 }
