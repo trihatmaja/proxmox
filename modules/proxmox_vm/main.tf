@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source = "bpg/proxmox"
+    }
+  }
+}
+
 resource "proxmox_vm_qemu" "vm" {
   name        = var.vm_name
   vm_id       = var.vm_id
