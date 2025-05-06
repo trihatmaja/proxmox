@@ -27,12 +27,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
     file_format  = "qcow2"
   }
 
-  cdrom {
-    enabled      = true
-    file_id      = var.iso_path
-    datastore_id = var.iso_storage
-  }
-
   network_device {
     bridge = var.vm_bridge
     model  = "virtio"
