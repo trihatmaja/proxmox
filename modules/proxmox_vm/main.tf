@@ -39,6 +39,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     datastore_id = var.vm_storage
     size         = var.vm_disk_size
     file_format  = "qcow2"
+    file_id      = proxmox_virtual_environment_download_file.target_cloud_image.id
   }
 
   network_device {
@@ -50,8 +51,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
     type = "l26"
   }
 
-  boot_order = ["cdrom", "disk"]
-
   agent {
     enabled = false
   }
@@ -59,10 +58,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
   started = true
 }
 
-resource "proxmox_virtual_environment_download_file" "cloud_image" {
+resource "proxmox_virtual_environment_download_file" "target_cloud_image" {
   content_type = "iso"
-  datastore_id = "ssd-proxmox"
-  node_name    = "proxmox"
+  datastore_id = "synology-new"
+  node_name    = var.target_node
   url          = var.image_url
   file_name    = var.image_file_name
   verify       = false
