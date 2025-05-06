@@ -6,11 +6,10 @@ terraform {
   }
 }
 
-resource "proxmox_vm_qemu" "vm" {
-  name        = var.vm_name
-  vm_id       = var.vm_id
-  node_name   = var.target_node
-  desc        = "Provisioned via Terraform"
+resource "proxmox_vm" "vm" {
+  name      = var.vm_name
+  vm_id     = var.vm_id
+  node_name = var.target_node
 
   cpu {
     cores = var.vm_cores
