@@ -62,7 +62,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 resource "proxmox_virtual_environment_download_file" "cloud_image" {
   content_type = "iso"
   datastore_id = "ssd-proxmox"
-  node_name    = var.target_node
+  node_name    = "proxmox"
   url          = var.image_url
   file_name    = var.image_file_name
   verify       = false
