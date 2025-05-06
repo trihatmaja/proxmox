@@ -1,4 +1,4 @@
-module "vm1" {
+module "vm2" {
   source          = "./modules/proxmox_vm"
   vm_name         = var.vm2_name
   vm_id           = var.vm2_id
