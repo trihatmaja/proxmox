@@ -1,4 +1,4 @@
-name: Terraform Plan (Proxmox)
+name: Terraform Plan - Apply (Proxmox)
 
 on:
   push:
@@ -25,3 +25,4 @@ jobs:
         with:
           name: terraform-plan
           path: tfplan.binary
+  

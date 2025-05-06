@@ -12,9 +12,12 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-      - uses: actions/download-artifact@v4
+      - uses: dawidd6/action-download-artifact@v9
         with:
+          workflow: terraform-plan.yml
+          workflow_conclusion: success
           name: terraform-plan
+          github_token: ${{ secrets.G_TOKEN }}
       - run: terraform init
       - run: terraform apply -auto-approve tfplan.binary
         env:
