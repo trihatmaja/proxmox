@@ -5,4 +5,5 @@ module "vm1" {
   target_node     = var.vm1_target_node
   image_url       = var.vm1_image_url
   image_file_name = var.vm1_image_file_name
+  vm_tags         = var.vm1_tags
 }

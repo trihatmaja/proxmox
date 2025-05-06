@@ -11,6 +11,20 @@ resource "proxmox_virtual_environment_vm" "vm" {
   vm_id     = var.vm_id
   node_name = var.target_node
   description = "Managed by Terraform"
+  tags = var.vm_tags
+
+  initialization {
+    user_account {
+      username = var.vm_username
+      password = var.vm_password
+    }
+
+    ip_config {
+      ipv4 {
+        address = "dhcp"
+      }
+    }
+  }
 
   cpu {
     cores = var.vm_cores
@@ -47,7 +61,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
 resource "proxmox_virtual_environment_download_file" "cloud_image" {
   content_type = "iso"
-  datastore_id = "local"
+  datastore_id = "ssd-proxmox"
   node_name    = var.target_node
   url          = var.image_url
   file_name    = var.image_file_name

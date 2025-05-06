@@ -3,6 +3,10 @@ variable "target_node" {}
 variable "vm_id" {}
 variable "image_url" {}
 variable "image_file_name" {}
+variable "vm_tags" {
+  type    = list(string)
+  default = []
+}
 
 # Optional defaults
 variable "vm_cores"     { default = 2 }
