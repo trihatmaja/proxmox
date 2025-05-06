@@ -6,10 +6,11 @@ terraform {
   }
 }
 
-resource "proxmox_vm" "vm" {
+resource "proxmox_virtual_environment_vm" "vm" {
   name      = var.vm_name
   vm_id     = var.vm_id
   node_name = var.target_node
+  description = "Managed by Terraform"
 
   cpu {
     cores = var.vm_cores
