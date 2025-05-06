@@ -1,6 +1,10 @@
 # 🚀 Proxmox VM Provisioning via Terraform
 
-Proyek ini memungkinkan provisioning VM ke Proxmox secara modular menggunakan Terraform, dijalankan melalui GitHub Actions dengan self-hosted runner.
+Proyek ini memungkinkan provisioning VM ke Proxmox secara modular menggunakan Terraform, dijalankan melalui GitHub Actions dengan self-hosted runner. Ini menggunakan konsep cloud image. Untuk url cloud image bisa didapatkan dari beberapa tempat
+
+1. [Ubuntu](https://cloud-images.ubuntu.com/)
+2. [Debian](https://cloud.debian.org/images/cloud/)
+3. [Centos](https://cloud.centos.org/altarch/9-stream/x86_64/images/)
 
 ---
 
@@ -28,8 +32,8 @@ module "vm3" {
   vm_name        = var.vm3_name
   vm_id          = var.vm3_id
   target_node    = var.vm3_target_node
-  iso_storage    = var.vm3_iso_storage
-  iso_path       = var.vm3_iso_path
+  image_filename    = var.vm3_image_filename
+  image_url       = var.vm3_image_url
 }
 ```
 
@@ -39,18 +43,18 @@ module "vm3" {
 variable "vm3_name" {}
 variable "vm3_id" {}
 variable "vm3_target_node" {}
-variable "vm3_iso_storage" {}
-variable "vm3_iso_path" {}
+variable "vm3_image_url" {}
+variable "vm3_image_filename" {}
 ```
 
 ### 3. Tambahkan nilai variabel di `terraform.tfvars`
 
 ```hcl
-vm3_name         = "vm-ubuntu-03"
-vm3_id           = 102
-vm3_target_node  = "proxmox2"
-vm3_iso_storage  = "synology-new"
-vm3_iso_path     = "synology-new:iso/ubuntu-24.04.1-live-server-amd64.iso"
+vm3_name            = "vm-ubuntu-03"
+vm3_id              = 102
+vm3_target_node     = "proxmox2"
+vm3_image_url       = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+vm3_image_filename  = "noble-server-cloudimg-amd64.img"
 ```
 
 ### 4. Jalankan Terraform
@@ -84,6 +88,6 @@ module "vm3" {
 ```
 
 ## 📎 Referensi
-[https://github.com/Telmate/terraform-provider-proxmox]Terraform Provider Proxmox
-
+[Terraform Provider Proxmox](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/guides/cloud-image)
+[]
 ---
