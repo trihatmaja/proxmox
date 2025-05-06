@@ -59,11 +59,11 @@ resource "proxmox_virtual_environment_vm" "vm" {
 }
 
 resource "proxmox_virtual_environment_download_file" "target_cloud_image" {
-  content_type = "iso"
-  datastore_id = "synology-new"
-  node_name    = var.target_node
-  url          = var.image_url
-  file_name    = var.image_file_name
-  verify       = false
-  overwrite    = true
+  content_type        = "iso"
+  datastore_id        = "synology-new"
+  node_name           = var.target_node
+  url                 = var.image_url
+  file_name           = var.image_file_name
+  verify              = false
+  overwrite_unmanaged = true
 }
