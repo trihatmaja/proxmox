@@ -7,5 +7,5 @@ variable "vm1_tags" {
   type = list(string)
 }
 variable "vm1_cores" {}
-variable "vm1_memory {}
-variable "vm1_disk_size {}
+variable "vm1_memory" {}
+variable "vm1_disk_size" {}
