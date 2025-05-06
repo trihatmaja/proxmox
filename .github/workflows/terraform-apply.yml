@@ -15,7 +15,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: terraform-plan
-          path: ./tfplan.binary
+          path: .
       - run: terraform init
       - run: terraform apply -auto-approve tfplan.binary
         env:
