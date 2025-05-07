@@ -20,20 +20,20 @@ stages:
         steps:
           - checkout: self
 
-          - task: UseTerraform@0
+          - task: TerraformInstaller@1
+            displayName: install terraform
+
+          - task: TerraformCLI@1
+            displayName: 'terraform init'
             inputs:
-              terraformVersion: '1.6.6'
+              command: init
 
-          - script: terraform init
-            workingDirectory: $(Build.SourcesDirectory)/proxmox-vm
-            displayName: 'Terraform Init'
+          - task: TerraformCLI@1
+            displayName: 'terraform plan'
+            inputs:
+              command: plan
+              commandOptions: '-out=$(System.DefaultWorkingDirectory)/tfplan.binary'
 
-          - script: terraform plan -out=tfplan.binary
-            workingDirectory: $(Build.SourcesDirectory)/proxmox-vm
-            displayName: 'Terraform Plan'
-
-          - publish: $(Build.SourcesDirectory)/proxmox-vm/tfplan.binary
-            artifact: tfplan
 
   - stage: Apply
     dependsOn: Plan
@@ -51,14 +51,23 @@ stages:
                 - download: current
                   artifact: tfplan
 
-                - task: UseTerraform@0
+                - task: TerraformInstaller@1
+                  displayName: install terraform
+
+                - task: TerraformCLI@1
+                  displayName: 'terraform init'
                   inputs:
-                    terraformVersion: '1.6.6'
+                    command: init
 
-                - script: terraform init
-                  workingDirectory: $(Build.SourcesDirectory)/proxmox-vm
-                  displayName: 'Terraform Init'
+                - task: TerraformCLI@1
+                  displayName: 'terraform plan'
+                  inputs:
+                    command: plan
+                    commandOptions: '-out=$(System.DefaultWorkingDirectory)/tfplan.binary'
 
-                - script: terraform apply -auto-approve tfplan.binary
-                  workingDirectory: $(Build.SourcesDirectory)/proxmox-vm
-                  displayName: 'Terraform Apply'
+                - task: TerraformCLI@1
+                  displayName: 'terraform apply'
+                  inputs:
+                    command: apply
+                    commandOptions: '-auto-approve tfplan.binary'
+                
