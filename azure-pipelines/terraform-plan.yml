@@ -1,0 +1,28 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: 'self-hosted'
+
+variables:
+  TF_VAR_pm_user: $(PM_USER)
+  TF_VAR_pm_password: $(PM_PASSWORD)
+  TF_VAR_vm_username: $(VM_USERNAME)
+  TF_VAR_vm_password: $(VM_PASSWORD)
+
+steps:
+  - task: UseTerraform@0
+    inputs:
+      terraformVersion: '1.6.6'
+
+  - checkout: self
+
+  - script: terraform init
+    workingDirectory: $(Build.SourcesDirectory)/proxmox-vm
+    displayName: 'Terraform Init'
+
+  - script: terraform plan -out=tfplan.binary
+    workingDirectory: $(Build.SourcesDirectory)/proxmox-vm
+    displayName: 'Terraform Plan'
