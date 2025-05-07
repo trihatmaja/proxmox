@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  name: 'SelfHostedProxmox'
+  name: 'self-hosted'
 
 variables:
   TF_VAR_pm_user: $(PM_USER)
