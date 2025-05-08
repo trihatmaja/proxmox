@@ -19,12 +19,12 @@ stages:
   - job: TerraformPlan
     displayName: 'Terraform Plan'
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformInstaller@1
       inputs:
         terraformVersion: 'latest'
 
     - script: |
         terraform --version
-        terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
-        terraform plan -out=tfplan
+        terraform init
+        terraform plan
       displayName: 'Terraform Init and Plan'
