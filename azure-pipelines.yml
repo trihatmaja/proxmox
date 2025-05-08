@@ -6,6 +6,9 @@ trigger:
 pool:
   name: 'self-hosted'
 
+variables:
+- group: pipeline
+
 stages:
 - stage: Plan
   displayName: 'Terraform Plan'
