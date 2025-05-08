@@ -31,6 +31,9 @@ stages:
       displayName: "Terraform Init"
     - script: |
         terraform plan -out=tfplan.binary
-      variables:
-      - group: pipeline
       displayName: "Terraform Plan"
+      env:
+        TF_VAR_pm_user: $(PM_USER)
+        TF_VAR_pm_password: $(PM_PASSWORD)
+        TF_VAR_vm_username: $(VM_USERNAME)
+        TF_VAR_vm_password: $(VM_PASSWORD)
