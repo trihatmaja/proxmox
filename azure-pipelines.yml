@@ -37,3 +37,36 @@ stages:
         TF_VAR_pm_password: $(PM_PASSWORD)
         TF_VAR_vm_username: $(VM_USERNAME)
         TF_VAR_vm_password: $(VM_PASSWORD)
+- stage: Apply
+  displayName: 'Terraform Apply'
+  dependsOn: Plan
+  jobs:
+  - job: TerraformApply
+    displayName: 'Terraform Apply'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+    - script: |
+        terraform --version
+      displayName: 'Terraform Version'
+    - script: |
+        terraform init
+      displayName: "Terraform Init"
+    - script: |
+        terraform plan -out=tfplan.binary
+      displayName: "Terraform Plan"
+      env:
+        TF_VAR_pm_user: $(PM_USER)
+        TF_VAR_pm_password: $(PM_PASSWORD)
+        TF_VAR_vm_username: $(VM_USERNAME)
+        TF_VAR_vm_password: $(VM_PASSWORD)
+    - script: |
+        terraform apply -auto-approve tfplan.binary 
+      displayName: "Terraform Apply"
+      env:
+        TF_VAR_pm_user: $(PM_USER)
+        TF_VAR_pm_password: $(PM_PASSWORD)
+        TF_VAR_vm_username: $(VM_USERNAME)
+        TF_VAR_vm_password: $(VM_PASSWORD)
+
