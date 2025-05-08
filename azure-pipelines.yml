@@ -40,6 +40,7 @@ stages:
 - stage: Apply
   displayName: 'Terraform Apply'
   dependsOn: Plan
+  condition: succeeded()
   jobs:
   - job: TerraformApply
     displayName: 'Terraform Apply'
