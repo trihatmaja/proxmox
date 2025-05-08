@@ -39,7 +39,6 @@ stages:
         TF_VAR_vm_password: $(VM_PASSWORD)
 - stage: Apply
   displayName: 'Terraform Apply'
-  dependsOn: Plan
   condition: succeeded()
   trigger: manual
   jobs:
