@@ -31,4 +31,6 @@ stages:
       displayName: "Terraform Init"
     - script: |
         terraform plan -out=tfplan.binary
+      variables:
+      - group: pipeline
       displayName: "Terraform Plan"
