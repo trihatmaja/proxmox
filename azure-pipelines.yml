@@ -13,24 +13,21 @@ variables:
   TF_VAR_vm_password: $(VM_PASSWORD)
 
 stages:
-  - stage: Plan
-    jobs:
-      stages:
-      - stage: Plan
-        displayName: 'Terraform Plan'
-        jobs:
-        - job: TerraformPlan
-          displayName: 'Terraform Plan'
-          steps:
-          - task: TerraformInstaller@0
-            inputs:
-              terraformVersion: 'latest'
+- stage: Plan
+  displayName: 'Terraform Plan'
+  jobs:
+  - job: TerraformPlan
+    displayName: 'Terraform Plan'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
 
-          - script: |
-              terraform --version
-              terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
-              terraform plan -out=tfplan
-            displayName: 'Terraform Init and Plan'
+    - script: |
+        terraform --version
+        terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
+        terraform plan -out=tfplan
+      displayName: 'Terraform Init and Plan'
 
   - stage: Apply
     dependsOn: Plan
