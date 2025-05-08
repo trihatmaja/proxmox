@@ -30,5 +30,5 @@ stages:
         terraform init
       displayName: "Terraform Init"
     - script: |
-        terraform plan
-      displayName: "Terraform Plan -o tfplan"
+        terraform plan -out=tfplan.binary
+      displayName: "Terraform Plan"
