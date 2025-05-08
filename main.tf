@@ -21,3 +21,4 @@ provider "proxmox" {
     agent = false
   }
 }
+

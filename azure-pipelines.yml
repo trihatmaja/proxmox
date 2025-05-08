@@ -15,25 +15,22 @@ variables:
 stages:
   - stage: Plan
     jobs:
-      - job: TerraformPlan
-        displayName: Terraform Plan
-        steps:
-          - checkout: self
-
-          - task: TerraformInstaller@1
-            displayName: install terraform
-
-          - task: TerraformCLI@1
-            displayName: 'terraform init'
+      stages:
+      - stage: Plan
+        displayName: 'Terraform Plan'
+        jobs:
+        - job: TerraformPlan
+          displayName: 'Terraform Plan'
+          steps:
+          - task: TerraformInstaller@0
             inputs:
-              command: init
+              terraformVersion: 'latest'
 
-          - task: TerraformCLI@1
-            displayName: 'terraform plan'
-            inputs:
-              command: plan
-              commandOptions: '-out=$(System.DefaultWorkingDirectory)/tfplan.binary'
-
+          - script: |
+              terraform --version
+              terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
+              terraform plan -out=tfplan
+            displayName: 'Terraform Init and Plan'
 
   - stage: Apply
     dependsOn: Plan
