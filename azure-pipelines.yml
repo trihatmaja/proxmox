@@ -35,7 +35,7 @@ stages:
         TF_VAR_vm_username: $(VM_USERNAME)
         TF_VAR_vm_password: $(VM_PASSWORD)
     - task: trivy@2
-      name: TrivyCurrent
+      name: TrivyScanFilesystem
       displayName: 'Scan current repository as filesystem'
       inputs:
         version: 'latest'
@@ -46,7 +46,7 @@ stages:
         ignoreScanErrors: true
         reports: 'sarif, table'
     - task: trivy@2
-      name: TrivyCurrent
+      name: TrivyScanRepository
       displayName: 'Scan current repository as repository'
       inputs:
         version: 'latest'
@@ -57,8 +57,8 @@ stages:
         ignoreScanErrors: true
         reports: 'sarif, table'
     - task: trivy@2
-      name: TrivyCurrent
-      displayName: 'Scan current repository as repository'
+      name: TrivyScanPlan
+      displayName: 'Scan current tfplan'
       inputs:
         version: 'latest'
         type: 'filesystem'
