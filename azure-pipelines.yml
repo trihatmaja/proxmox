@@ -27,12 +27,54 @@ stages:
       displayName: "Terraform Init"
     - script: |
         terraform plan -out=tfplan.binary
+        terraform show -json tfplan.binary > tfplan.json
       displayName: "Terraform Plan"
       env:
         TF_VAR_pm_user: $(PM_USER)
         TF_VAR_pm_password: $(PM_PASSWORD)
         TF_VAR_vm_username: $(VM_USERNAME)
         TF_VAR_vm_password: $(VM_PASSWORD)
+    - task: trivy@2
+      name: TrivyCurrent
+      displayName: 'Scan current repository as filesystem'
+      inputs:
+        version: 'latest'
+        type: 'filesystem'
+        target: '.'
+        scanners: 'license, misconfig, secret, vuln'
+        severities: 'HIGH, CRITICAL'
+        ignoreScanErrors: true
+        reports: 'sarif, table'
+    - task: trivy@2
+      name: TrivyCurrent
+      displayName: 'Scan current repository as repository'
+      inputs:
+        version: 'latest'
+        type: 'repository'
+        target: '.'
+        scanners: 'license, misconfig, secret, vuln'
+        severities: 'HIGH, CRITICAL'
+        ignoreScanErrors: true
+        reports: 'sarif, table'
+    - task: trivy@2
+      name: TrivyCurrent
+      displayName: 'Scan current repository as repository'
+      inputs:
+        version: 'latest'
+        type: 'filesystem'
+        target: './tfplan.json'
+        scanners: 'license, misconfig, secret, vuln'
+        severities: 'HIGH, CRITICAL'
+        ignoreScanErrors: true
+        reports: 'sarif, table'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'sarif'
+        testResultsFiles: |
+          $(TrivyCurrent.sarifReport)
+        searchFolder: '$(Agent.TempDirectory)'
+        publishRunAttachments: true
+
 - stage: Apply
   displayName: 'Terraform Apply'
   condition: succeeded()
