@@ -55,7 +55,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     enabled = false
   }
 
-  started = true
+  started = var.started
 }
 
 resource "proxmox_virtual_environment_download_file" "target_cloud_image" {
