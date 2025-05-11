@@ -11,4 +11,5 @@ module "vm3" {
   vm_cores        = var.vm3_cores
   vm_memory       = var.vm3_memory
   vm_disk_size    = var.vm3_disk_size
+  vm_keys         = var.vm_keys
 }

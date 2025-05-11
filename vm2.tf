@@ -11,4 +11,5 @@ module "vm2" {
   vm_cores        = var.vm2_cores
   vm_memory       = var.vm2_memory
   vm_disk_size    = var.vm2_disk_size
+  vm_keys         = var.vm_keys
 }

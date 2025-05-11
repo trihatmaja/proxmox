@@ -21,6 +21,7 @@ jobs:
           TF_VAR_pm_password: ${{ secrets.PM_PASSWORD }}
           TF_VAR_vm_username: ${{ secrets.VM_USERNAME }}
           TF_VAR_vm_password: ${{ secrets.VM_PASSWORD }}
+          TF_VAR_vm_keys: ${{ secrets.VM_KEYS }}
       - uses: actions/upload-artifact@v4
         with:
           name: terraform-plan
