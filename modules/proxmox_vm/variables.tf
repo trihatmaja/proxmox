@@ -9,7 +9,7 @@ variable "vm_tags" {
 }
 variable "vm_username" {}
 variable "vm_password" {}
-variable "vm_keys" {}
+variable "vm_keys" { type = string }
 
 # Optional defaults
 variable "vm_cores"     { default = 2 }
