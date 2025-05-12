@@ -24,6 +24,9 @@ resource "proxmox_virtual_environment_vm" "vm" {
       ipv4 {
         address = "dhcp"
       }
+      ipv6 {
+        address = "dhcp"
+      }
     }
   }
 
